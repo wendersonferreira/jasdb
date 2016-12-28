@@ -44,7 +44,9 @@ public class SimpleEntity implements Serializable, CachableItem, IndexableItem {
 
 	private String internalId;
 	private Map<String, Property> properties;
-	
+
+    private boolean multiValue;
+
 	public static final String DOCUMENT_ID = "__ID";
 	
 	public SimpleEntity(String internalId) {
@@ -274,7 +276,7 @@ public class SimpleEntity implements Serializable, CachableItem, IndexableItem {
         if(properties.containsKey(propertyName)) {
             mvProperty = properties.get(propertyName);
         } else {
-            mvProperty = new MultivalueProperty(propertyName);
+            mvProperty = new MultivalueProperty(propertyName, isMultiValue());
             properties.put(propertyName, mvProperty);
         }
         mvProperty.addValue(value);
@@ -423,5 +425,13 @@ public class SimpleEntity implements Serializable, CachableItem, IndexableItem {
         return "SimpleEntity{" +
                 "internalId='" + internalId + '\'' +
                 '}';
+    }
+
+    public void setMultiValue(boolean multiValue) {
+        this.multiValue = multiValue;
+    }
+
+    public boolean isMultiValue() {
+        return multiValue;
     }
 }

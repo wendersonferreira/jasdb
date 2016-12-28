@@ -96,7 +96,7 @@ public class MultivalueProperty implements Property {
     }
 
     private void validateAndSetCollection() {
-        isCollection = values.size() > 1;
+        isCollection = isCollection && values.size() > 0 || !isCollection && values.size() > 1;
     }
 
     public String toString() {

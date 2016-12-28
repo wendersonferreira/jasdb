@@ -76,9 +76,11 @@ public class JsonEntityDeserializer implements EntityDeserializer {
                 } else {
                     token = parser.nextToken(); // start values
                     if(token == JsonToken.START_ARRAY) { //multivalues
+                        entity.setMultiValue(true);
                         parser.nextToken(); //we need to advance by one for first value
                         handleValues(parser, fieldName, entity);
                         parser.nextToken();
+                        entity.setMultiValue(false);
                     } else {
                         handleValues(parser, fieldName, entity);
                     }
